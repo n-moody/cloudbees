@@ -20,18 +20,6 @@ jobs:
           python --version
           pip install --upgrade pip
 
-      - name: Pull Selenium Chrome image
-        uses: docker://ubuntu:latest
-        shell: bash
-        run: |
-          docker pull selenium/standalone-chrome:latest
-
-      - name: Start Selenium container
-        uses: docker://ubuntu:latest
-        shell: bash
-        run: |
-          docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" --name selenium_chrome selenium/standalone-chrome:latest
-
       - name: Install dependencies
         uses: docker://python:3.9
         shell: bash
@@ -39,7 +27,7 @@ jobs:
           pip install selenium pytest
 
       - name: Run tests
-        uses: docker://python:3.9
+        uses: docker://selenium/standalone-chrome:latest
         shell: bash
         run: |
           pytest test_web_interface.py
@@ -48,5 +36,4 @@ jobs:
         uses: docker://ubuntu:latest
         shell: bash
         run: |
-          docker stop selenium_chrome
-          docker rm selenium_chrome
+          echo "Cleanup step - add any necessary cleanup commands here"
