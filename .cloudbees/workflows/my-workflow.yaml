@@ -1,17 +1,38 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: My workflow
+name: My Simple Pipeline
 
 on:
   push:
     branches:
-      - '**'
+      - 'main'
 
 jobs:
   build:
     steps:
-      - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
+      - name: Build
+        uses: docker://ubuntu:latest
+        shell: bash
         run: |
-          echo "hello world"
+          echo "Building the project..."
+          # Add your build commands here
+
+  test:
+    needs: build
+    steps:
+      - name: Test
+        uses: docker://ubuntu:latest
+        shell: bash
+        run: |
+          echo "Running tests..."
+          # Add your test commands here
+
+  deploy:
+    needs: test
+    steps:
+      - name: Deploy
+        uses: docker://ubuntu:latest
+        shell: bash
+        run: |
+          echo "Deploying the project..."
+          # Add your deployment commands here
