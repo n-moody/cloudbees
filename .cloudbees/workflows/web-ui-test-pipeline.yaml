@@ -13,6 +13,13 @@ jobs:
       - name: Checkout code
         uses: cloudbees-io/checkout@v1
 
+      - name: Set up Python
+        uses: docker://python:3.9
+        shell: bash
+        run: |
+          python --version
+          pip install --upgrade pip
+
       - name: Pull Selenium Chrome image
         uses: docker://ubuntu:latest
         shell: bash
@@ -25,20 +32,14 @@ jobs:
         run: |
           docker run -d -p 4444:4444 -p 7900:7900 --shm-size="2g" --name selenium_chrome selenium/standalone-chrome:latest
 
-      - name: Set up Python
-        uses: cloudbees-io/setup-python@v1
-        with:
-          python-version: '3.x'
-
       - name: Install dependencies
-        uses: docker://python:3
+        uses: docker://python:3.9
         shell: bash
         run: |
-          python -m pip install --upgrade pip
           pip install selenium pytest
 
       - name: Run tests
-        uses: docker://python:3
+        uses: docker://python:3.9
         shell: bash
         run: |
           pytest test_web_interface.py
