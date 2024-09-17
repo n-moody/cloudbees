@@ -5,7 +5,7 @@ name: My Simple Pipeline
 on:
   push:
     branches:
-      - 'main'
+      - 'stop'
 
 jobs:
   build:
