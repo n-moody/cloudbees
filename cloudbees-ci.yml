@@ -1,0 +1,18 @@
+configuration:
+  components:
+    - name: "my-pipeline"
+      kind: "pipeline"
+      spec:
+        stages:
+          - name: "Build"
+            steps:
+              - name: "Echo"
+                command: "echo 'Building..'"
+          - name: "Test"
+            steps:
+              - name: "Echo"
+                command: "echo 'Testing..'"
+          - name: "Deploy"
+            steps:
+              - name: "Echo"
+                command: "echo 'Deploying..'"
