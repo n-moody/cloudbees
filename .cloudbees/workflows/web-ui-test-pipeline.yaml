@@ -21,11 +21,18 @@ jobs:
           go version
           go env
 
+      - name: Initialize Go module
+        uses: docker://golang:1.17
+        shell: bash
+        run: |
+          go mod init myproject
+          go mod tidy
+
       - name: Build
         uses: docker://golang:1.17
         shell: bash
         run: |
-          go build -v /main.go
+          go build -v ./...
 
   test:
     needs: build
@@ -34,10 +41,13 @@ jobs:
         uses: docker://golang:1.17
         shell: bash
         run: |
-          go test -v /main.go
+          go test -v ./...
 
   lint:
     steps:
+      - name: Checkout code
+        uses: cloudbees-io/checkout@v1
+
       - name: Run golangci-lint
         uses: docker://golangci/golangci-lint:v1.43
         shell: bash
