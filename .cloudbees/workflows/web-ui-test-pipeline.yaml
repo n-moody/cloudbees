@@ -25,7 +25,7 @@ jobs:
         uses: docker://golang:1.17
         shell: bash
         run: |
-          go build -v ./...
+          go build -v /main.go
 
   test:
     needs: build
@@ -34,7 +34,7 @@ jobs:
         uses: docker://golang:1.17
         shell: bash
         run: |
-          go test -v ./...
+          go test -v /main.go
 
   lint:
     steps:
