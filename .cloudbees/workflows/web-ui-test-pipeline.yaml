@@ -37,6 +37,15 @@ jobs:
   test:
     needs: build
     steps:
+      - name: Checkout code
+        uses: cloudbees-io/checkout@v1
+
+      - name: Set up Go
+        uses: docker://golang:1.17
+        shell: bash
+        run: |
+          go mod tidy
+
       - name: Run tests
         uses: docker://golang:1.17
         shell: bash
@@ -44,9 +53,16 @@ jobs:
           go test -v ./...
 
   lint:
+    needs: build
     steps:
       - name: Checkout code
         uses: cloudbees-io/checkout@v1
+
+      - name: Set up Go
+        uses: docker://golang:1.17
+        shell: bash
+        run: |
+          go mod tidy
 
       - name: Run golangci-lint
         uses: docker://golangci/golangci-lint:v1.43
