@@ -52,7 +52,7 @@ jobs:
         shell: sh
         run: |
           echo "Simulating deployment to development environment"
-          echo "Application version: ${{ github.sha }}"
+          echo "Application version: ${{ env.CLOUDBEES_WORKFLOW_ID }}"
           echo "Deployment successful!"
 
   notify:
