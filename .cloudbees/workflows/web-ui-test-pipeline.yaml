@@ -63,4 +63,4 @@ jobs:
         shell: sh
         run: |
           echo "Sending notification..."
-          echo "Deployment of version ${{ github.sha }} completed successfully!"
+          echo "Deployment completed successfully at $(date)"
